@@ -1,0 +1,388 @@
+:root {
+  --text-light: #ffffff;
+  --text-dark: #111111;
+
+  --glass-light: rgba(255, 255, 255, 0.65);
+  --glass-dark: rgba(0, 0, 0, 0.45);
+
+  --border-light: rgba(255,255,255,0.5);
+  --border-dark: rgba(255,255,255,0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: url('img/bckg-light.png') no-repeat center center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-dark);
+  transition: 0.4s;
+}
+
+/* Background overlay for readability */
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.2);
+  z-index: -1;
+}
+
+/* Dark mode */
+body.dark {
+  background: url('img/bckg-dark.png') no-repeat center center/cover;
+  color: var(--text-light);
+}
+
+/* Toggle button */
+.toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.toggle button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+}
+
+.toggle button:hover {
+  background: rgba(255,255,255,0.5);
+}
+
+#themeIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Container perspective */
+.container {
+  perspective: 1000px;
+}
+
+/* Glass card */
+.glass-box {
+  position: relative;
+  width: 320px;
+  padding: 40px;
+  border-radius: 20px;
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  transition: 0.3s;
+  overflow: hidden;
+}
+
+/* Light mode glass */
+body:not(.dark) .glass-box {
+  background: var(--glass-light);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Dark mode glass */
+body.dark .glass-box {
+  background: var(--glass-dark);
+  border: 1px solid var(--border-dark);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+/* Shine animation */
+.glass-box::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.1),
+    rgba(255,255,255,0.4),
+    rgba(255,255,255,0.1)
+  );
+  transform: rotate(25deg);
+  animation: shine 6s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(100%) rotate(25deg); }
+}
+
+.glass-box h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Inputs */
+.input-box {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  transition: 0.3s;
+}
+
+/* Focus effect - make inputs bigger */
+.input-box input:focus {
+  padding: 15px;
+  font-size: 16px;
+  transform: scale(1.02);
+}
+
+/* Light mode inputs */
+body:not(.dark) .input-box input {
+  background: rgba(255,255,255,0.9);
+  color: #000;
+}
+
+/* Dark mode inputs */
+body.dark .input-box input {
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+/* Labels */
+.input-box label {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.3s;
+  color: gray;
+}
+
+body.dark .input-box label {
+  color: #ccc;
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label {
+  top: -8px;
+  left: 5px;
+  font-size: 12px;
+}
+
+/* Button */
+button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Light mode button */
+body:not(.dark) button {
+  background: rgba(0,0,0,0.1);
+  color: #000;
+}
+
+/* Dark mode button */
+body.dark button {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+#message {
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Divider */
+.divider {
+  text-align: center;
+  margin: 15px 0 15px 0;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Login options */
+.login-options {
+  display: flex;
+  gap: 16px;
+}
+
+.login-options + .login-options {
+  margin-top: 16px;
+}
+
+.login-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Light mode login buttons */
+body:not(.dark) .google-btn {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ddd;
+}
+
+body:not(.dark) .email-btn {
+  background: #e8e8e8;
+  color: #000000;
+}
+
+/* Dark mode login buttons */
+body.dark .google-btn {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ddd;
+}
+
+body.dark .email-btn {
+  background: #e8e8e8;
+  color: #000000;
+}
+
+.login-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.blue-btn {
+  background: #0066cc;
+  color: #ffffff;
+  border: 1px solid #005bb5;
+}
+
+.blue-btn:hover {
+  background: #0052a3;
+}
+
+.google-btn:hover {
+  background: #f0f0f0;
+}
+
+.email-btn:hover {
+  background: #d0d0d0;
+}
+
+/* Auth links */
+.auth-links {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.auth-links p {
+  margin: 8px 0;
+  font-size: 13px;
+}
+
+.auth-links a {
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+/* Light mode links */
+body:not(.dark) .auth-links a {
+  color: #000000;
+}
+
+/* Dark mode links */
+body.dark .auth-links a {
+  color: #ffffff;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+/* Attribution link */
+#attribution-link {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #666;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+#attribution-link:hover {
+  opacity: 1;
+}
+
+/* Only show in light mode */
+body.dark #attribution-link {
+  display: none;
+}
+
+/* Dark mode attribution link */
+#attribution-link-dark {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #ccc;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+#attribution-link-dark:hover {
+  opacity: 1;
+}
+
+/* Only show in dark mode */
+body:not(.dark) #attribution-link-dark {
+  display: none;
+}
+
+/* Apply this class to any element you want to protect */
+.no-copy {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Internet Explorer/Edge */
+    user-select: none;         /* Standard syntax */
+}
